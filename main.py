@@ -1,3 +1,4 @@
+import generate_excel 
 
 def dec_to_bin(IP):
     bin_list = list()
@@ -36,13 +37,18 @@ def string_bin_ip(IP_bin):
     for i in IP_bin:
         string_bin+=i
     return string_bin
-def host_formule(num_host):
-    n_host=0
+
+def hosts_formule(num_host, formule=True):
+    flag=2
+    if formule is not True:
+        flag=0
+    n_hosts=0
     idx=0
-    while num_host>=n_host:
-        idx+=1
-        n_host=pow(2,idx)-2
-    return n_host, idx
+    while num_host >=n_hosts:
+        idx++
+        n_host=pow(2,idx)-flag
+    return n_host,idx
+
 
 def calc_mask(n):
     string_mask=""
@@ -69,6 +75,7 @@ def first_ip(ip):
         newip[2] = 0
         newip[3] = 0
     return newip
+
 def last_ip(ip):
     newip=ip
     if ip[3]>0:
@@ -139,8 +146,7 @@ if __name__ == '__main__':
     '''
 
     #WAN
-    #nets = [[[170, 20, 0, 0], [1,1,1,1,1]]]
-
+    nets = [[[33,0,8,0], [976,438,280]]]
     total_nets=list()
     for net in nets:
         total_host = list()
@@ -152,6 +158,9 @@ if __name__ == '__main__':
             total_host.append(new_net[:])
         total_nets.append(total_host)
 
+    #TODO: Replantear la forma de almacenar los datos de las redes (?) 
+    columns=["Enc","Dir IP","Prefijo" ,"Mascara","Primera ip","Ultima IP","Broadcast"]
+    excel= new GenerateExcel(columns,)
     for i in total_nets:
         print("\nEnc    Dir IP      Prefijo       Mascara          Primera ip           Ultima IP          Broadcast")
         print(
@@ -159,4 +168,4 @@ if __name__ == '__main__':
         for j in i:
             print(j)
         print("--------------------------------------------------------------------------------------------------------")
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
