@@ -1,22 +1,36 @@
 import pandas
 import numpy
 from pandas import ExcelWriter
+
+
 class GenerateExcel:
-    def __init__(self,colums,rows,path):
-        self.columns=columns
-        self.rows=rows
-        self.path=path
-        
-    def generate(self):
-        data=pandas.DataFrame(numpy.array(self.rows),columns=self.columns)
-        writer=ExcelWriter(self.path)
-        data.to_excel(writer,"hoja de datos", index=False)
-        writer.save()
+    def __init__(self, columns=None, rows=None, path="/home/david/Desktop/Final-Redes/subneting.xlsx"):
+        self._columns = columns
+        self._rows = rows    
+        self._path = path
 
+        self.writer = ExcelWriter(self._path)
 
-if __name__ == '__main__':
-    columns=['nombre','edad']
-    rows=[['juan','28'],['andres','21']]
-    path='/home/david/Desktop/prueba.xlsx'
-    excel=GenerateExcel(columns,rows,path)
-    excel.generate()
+    @property
+    def columns(self):
+        return self._columns
+
+    @columns.setter
+    def columns(self, value):
+        self._columns = value
+
+    @property
+    def rows(self):
+        return self._rows
+    
+    @rows.setter
+    def rows(self, value):
+        self._rows=value
+
+    def generate(self, name):
+        data = pandas.DataFrame(numpy.array(self._rows), columns=self._columns)
+        data.to_excel(self.writer, name, index=False)
+
+    def save_book(self):
+        self.writer.save()
+
