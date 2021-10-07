@@ -4,7 +4,7 @@ from pandas import ExcelWriter
 
 
 class GenerateExcel:
-    def __init__(self, columns=None, rows=None, path="/home/david/Desktop/Final-Redes/subneting.xlsx"):
+    def __init__(self, columns=None, rows=None, path="/home/david/Desktop/Final-Redes/subnetting.xlsx"):
         self._columns = columns
         self._rows = rows    
         self._path = path
