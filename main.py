@@ -123,7 +123,29 @@ def wildcard(mask):
     
     return wildcard
 
+def subnet(ip, num_host,byHost=True):
+    binary_IP = dec_to_bin(ip[:])
+    num_host_n = hosts_formule(num_host,byHost)
+    new_mask = bin_to_dec(calc_mask(num_host_n[1]))
 
+    Dir_IP = ip
+    First_IP = first_ip(Dir_IP[:])
+
+    dir_broadcast = broadcast(binary_IP[:], num_host_n[1])
+    last_IP = last_ip(dir_broadcast[:])
+
+    wcard=wildcard(new_mask)
+
+    data = list()
+    data.append(num_host_n[0])
+    data.append(str(Dir_IP)[1:-1].replace(", ", "."))
+    data.append(32 - num_host_n[1])
+    data.append(str(new_mask)[1:-1].replace(", ", "."))
+    data.append(str(First_IP)[1:-1].replace(", ", "."))
+    data.append(str(last_IP)[1:-1].replace(", ", "."))
+    data.append((str(dir_broadcast)[1:-1]).replace(", ", "."))
+    data.append(str(wcard)[1:-1].replace(", ", "."))
+    return data
 
 # Press the green button in the gutter to run the script.
 if __name__ == "__main__":
@@ -131,7 +153,7 @@ if __name__ == "__main__":
     # ejercicio1
     # LAN
 
-    #nets = [[[42,168, 16, 0],[135,125,120,110,110,90,88,88,70,60,60,45,44,40,30,22,14]]]
+    nets = [[[42,168, 16, 0],[135,125,120,110,110,90,88,88,70,60,60,45,44,40,30,22,14]]]
 
     # nets = [
     #    # [[33,0,8,0],[  672,365,214,20,4]]
